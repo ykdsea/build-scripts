@@ -86,13 +86,15 @@ lunch $ANDROID_BUILD_COMBO
 #make clean
 #make otapackage -j$ANDROID_BUILD_JOBNUM
 make otapackage -j
-
-if [ $? -eq 0 ]
-then
-	ANDROID_BUILD_RET=1
-fi
+ANDROID_BUILD_RET=$?
 
 cd "$LAST_WD"
 
-exit $ANDROID_BUILD_RET
+
+if [ $ANDROID_BUILD_RET -ne 0 ]
+then
+	exit 1
+else
+	exit 0
+fi
 

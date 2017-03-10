@@ -28,7 +28,6 @@ ANDROID_PUBLISH_LIST=(
 	recovery.img
 	system.img
 	obj/KERNEL_OBJ/vmlinux
-	*.xml
 )
 
 
@@ -37,7 +36,9 @@ ANDROID_PUBLISH_LIST=(
 ##########################################################################
 for object in ${ANDROID_PUBLISH_LIST[@]}
 do
-	obj_path="$ANDROID_OUTPUT_PATH/$object"
+	obj_path=$ANDROID_OUTPUT_PATH/$object
+	echo "obj_path "$obj_path
+
 	if [ ! -f $obj_path ]
 	then
 		echo "object "$obj_path" not exist, android build should failed, please check."
@@ -49,7 +50,8 @@ done
 ##########################################################################
 #publish images
 ##########################################################################
-ssh autobuild@$ADNROID_PUBLISH_SERVER 'mkdir -p $ANDROID_PUBLISH_PATH'
+echo "PUBLISH PATH : "$ANDROID_PUBLISH_PATH
+ssh autobuild@$ADNROID_PUBLISH_SERVER	"mkdir -p $ANDROID_PUBLISH_PATH"
 if [ $? -ne 0 ]
 then
 	echo "ssh the publish server "$ADNROID_PUBLISH_SERVER" failed."
@@ -66,6 +68,13 @@ do
 		exit 1
 	fi
 done
+
+scp $ANDROID_OUTPUT_PATH/*.xml autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
+if [ $? -ne 0 ]
+then
+	echo "publish manifest & jenkins xml failed."
+	exit 1
+fi
 
 
 exit 0

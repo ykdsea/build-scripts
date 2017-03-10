@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export BUILD_NUMBER=99
 export AML_SCRIPTS_PATH=/home/autobuild/build-scripts
 export BOARD=p212
 export BUILD_VARIANT=user
