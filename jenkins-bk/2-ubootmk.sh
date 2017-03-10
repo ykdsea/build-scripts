@@ -1,9 +1,10 @@
 #!/bin/bash
 #########################################################################
-#																		#
-#						build, publish uboot							#
-#																		#
+#									#
+#                         build, publish uboot				#
+#									#
 #########################################################################
+
 UBOOT_SOURCE_PATH="$WORKSPACE/source/uboot"
 $AML_SCRIPTS_PATH/bootloader/build_uboot.sh $BOARD $UBOOT_SOURCE_PATH
 if [ $? -ne 0 ]
