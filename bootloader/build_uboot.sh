@@ -98,7 +98,7 @@ getBuildCfg(){
 		echo "get cfg for board "$1" failed!"
 	fi
 
-	return ret
+	return $ret
 }
 
 ##########################################################################
