@@ -60,23 +60,29 @@ else
 fi
 
 #check gms install dest path
-expr index "$ANDROID_GMS_INSTALL_PATH" "$AML_BUILD_WORK_BASE_PATH"
-if [ $? == 0 ]
+matchLen=$(expr match "$ANDROID_GMS_INSTALL_PATH" "$AML_BUILD_WORK_BASE_PATH")
+echo "get home dir match len:"$matchLen
+
+if [ $matchLen -eq 0 ]
 then
 	echo "INSTALL PATH("$ANDROID_GMS_INSTALL_PATH") is not in work dir("$AML_BUILD_WORK_BASE_PATH")."
 	exit 1
 else
-	if [ ! -d "$ANDROID_GMS_INSTALL_PATH" ]
+	if [ -d "$ANDROID_GMS_INSTALL_PATH" ]
 	then
-		echo "gms install path ("$ANDROID_GMS_INSTALL_PATH") is not exist, create it."
-		mkdir -p $ANDROID_GMS_INSTALL_PATH
+		echo "gms install path ("$ANDROID_GMS_INSTALL_PATH") exist, clean it."
+		rm -r "$ANDROID_GMS_INSTALL_PATH"
 		if [ $? -ne 0 ]
 		then
 			exit 1
 		fi
-	else
-		echo "gms install path ("$ANDROID_GMS_INSTALL_PATH") exist, clean it."
-		rm -r "$ANDROID_GMS_INSTALL_PATH"
+	fi
+
+	echo "create gms install path ("$ANDROID_GMS_INSTALL_PATH")."
+	mkdir -p $ANDROID_GMS_INSTALL_PATH
+	if [ $? -ne 0 ]
+	then
+		exit 1
 	fi
 fi
 

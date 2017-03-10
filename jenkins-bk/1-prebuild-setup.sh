@@ -28,7 +28,6 @@ else
 	exit 0
 fi
 
-
 ##########################################################################
 #check build type.
 ##########################################################################
@@ -48,6 +47,7 @@ fi
 ##########################################################################
 if [ "$BUILD_PRE_INSTALL_GMS" = "TRUE" ]
 then
+	echo "Install gms patckage"
 	$AML_SCRIPTS_PATH/android/install_gms_package.sh  $GMS_VERSION $GMS_INSTALL_PATH
 	if [ $? -ne 0 ]
 	then
