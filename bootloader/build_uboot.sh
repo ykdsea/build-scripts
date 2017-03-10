@@ -116,7 +116,7 @@ then
 	exit 1
 fi
 
-LAST_WD='$(pwd)'
+LAST_WD=$(pwd)
 cd "$UBOOT_SOURCE_PATH"
 
 ./mk $UBOOT_BUILD_CFG
@@ -126,7 +126,7 @@ then
 	UBOOT_BUILD_RET=1
 fi
 
-cd $LAST_WD
+cd "$LAST_WD"
 
 exit $UBOOT_BUILD_RET
 
