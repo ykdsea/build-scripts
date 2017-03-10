@@ -34,7 +34,7 @@ fi
 if [ "$BUILD_PRE_UPDATE_SECUREOS" = "TRUE" ]
 then
 	echo "UBOOT UPDATE("$BUILD_TYPE"): update bl32.img for secureos."
-	cp -f $WORKSPACE/source/vendor/amlogic/tdk/secureos/bl32.img $UBOOT_SOURCE_PATH/fip/gxl
+	cp -f $WORKSPACE/source/vendor/amlogic/tdk/secureos/gx/bl32.img $UBOOT_SOURCE_PATH/fip/gxl
 	if [ $? -ne 0 ]
 	then
 		echo $BUILD_TYPE" copy bl32.img fail."
