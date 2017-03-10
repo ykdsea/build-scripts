@@ -70,19 +70,20 @@ then
 else
 	if [ -d "$ANDROID_GMS_INSTALL_PATH" ]
 	then
-		echo "gms install path ("$ANDROID_GMS_INSTALL_PATH") exist, clean it."
-		rm -r "$ANDROID_GMS_INSTALL_PATH"
+		echo "gms install path exist, nothing to do."
+		#echo "gms install path ("$ANDROID_GMS_INSTALL_PATH") exist, clean it."
+		#rm -r "$ANDROID_GMS_INSTALL_PATH"
+		#if [ $? -ne 0 ]
+		#then
+		#	exit 1
+		#fi
+	else
+		echo "create gms install path ("$ANDROID_GMS_INSTALL_PATH")."
+		mkdir -p $ANDROID_GMS_INSTALL_PATH
 		if [ $? -ne 0 ]
 		then
 			exit 1
 		fi
-	fi
-
-	echo "create gms install path ("$ANDROID_GMS_INSTALL_PATH")."
-	mkdir -p $ANDROID_GMS_INSTALL_PATH
-	if [ $? -ne 0 ]
-	then
-		exit 1
 	fi
 fi
 
