@@ -83,7 +83,7 @@ repo manifest -r -o $ANDROID_MANIFEST_SAVED_PATH
 
 source build/envsetup.sh
 lunch $ANDROID_BUILD_COMBO
-#make clean
+make clean
 make otapackage -j$ANDROID_BUILD_JOBNUM
 #make otapackage -j
 
