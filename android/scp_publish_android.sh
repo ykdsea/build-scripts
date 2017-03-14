@@ -22,6 +22,7 @@ ADNROID_PUBLISH_SERVER=$2
 ANDROID_PUBLISH_PATH=$3
 
 ANDROID_PUBLISH_LIST=(
+	aml_upgrade_package.img
 	u-boot.bin
 	dtb.img
 	boot.img
@@ -68,6 +69,13 @@ do
 		exit 1
 	fi
 done
+
+scp $ANDROID_OUTPUT_PATH/*.zip autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
+if [ $? -ne 0 ]
+then
+	echo "publish upgrade zip failed."
+	exit 1
+fi
 
 scp $ANDROID_OUTPUT_PATH/*.xml autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
 if [ $? -ne 0 ]
