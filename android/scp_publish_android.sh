@@ -44,6 +44,8 @@ do
 	then
 		echo "object "$obj_path" not exist, android build should failed, please check."
 		exit 1
+	else
+		chmod +r $obj_path
 	fi
 done
 
