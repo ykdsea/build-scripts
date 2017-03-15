@@ -55,6 +55,8 @@ setBuildType(){
 		echo "ERROR BUILD_TYPE:"$1
 		return 1
 	fi
+
+	export BOARD_ENABLE_USB_OTG=true
 	
 	return 0
 }
