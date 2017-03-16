@@ -35,10 +35,12 @@ ANDROID_PUBLISH_LIST=(
 ##########################################################################
 #check if all publish object exists.
 ##########################################################################
+COMPRESS_IMGS=""
 for object in ${ANDROID_PUBLISH_LIST[@]}
 do
 	obj_path=$ANDROID_OUTPUT_PATH/$object
 	echo "obj_path "$obj_path
+	COMPRESS_IMGS=$obj_path" "$COMPRESS_IMGS
 
 	if [ ! -f $obj_path ]
 	then
@@ -49,6 +51,7 @@ do
 	fi
 done
 
+tar Jcvf $ANDROID_OUTPUT_PATH/release-imgs.tar.xz $COMPRESS_IMGS
 
 ##########################################################################
 #publish images
@@ -61,16 +64,24 @@ then
 	exit 1
 fi
 
-for object in ${ANDROID_PUBLISH_LIST[@]}
-do
-	obj_path="$ANDROID_OUTPUT_PATH/$object"
-	scp $obj_path autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
-	if [ $? -ne 0 ]
-	then
-		echo "publish file failed."
-		exit 1
-	fi
-done
+#
+#for object in ${ANDROID_PUBLISH_LIST[@]}
+#do
+#	obj_path="$ANDROID_OUTPUT_PATH/$object"
+#	scp $obj_path autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
+#	if [ $? -ne 0 ]
+#	then
+#		echo "publish file failed."
+#		exit 1
+#	fi
+#done
+
+scp $ANDROID_OUTPUT_PATH/release-imgs.tar.xz autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
+if [ $? -ne 0 ]
+then
+	echo "publish upgrade zip failed."
+	exit 1
+fi
 
 scp $ANDROID_OUTPUT_PATH/*.zip autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
 if [ $? -ne 0 ]
