@@ -15,46 +15,116 @@ then
 	exit 1
 fi
 
-
-
 ANDROID_OUTPUT_PATH=$1
 ADNROID_PUBLISH_SERVER=$2
 ANDROID_PUBLISH_PATH=$3
 
-ANDROID_PUBLISH_LIST=(
+
+ANDROID_BURN_IMG_LIST=(
 	aml_upgrade_package.img
+)
+ANDROID_BURN_IMG_FILE=aml_upgrade_img.tar.xz
+
+ANDROID_SYSTEM_IMG_LIST=(
+	system.img
+	obj/KERNEL_OBJ/vmlinux
+)
+ANDROID_SYSTEM_IMG_FILE=system_vmlinux_img.tar.xz
+
+ANDROID_OTHER_IMG_LIST=(
 	u-boot.bin
 	dtb.img
 	boot.img
 	recovery.img
-	system.img
-	obj/KERNEL_OBJ/vmlinux
 )
+ANDROID_OTHER_IMG_FILE=other_img.tar.xz
+
+
 
 
 ##########################################################################
-#check if all publish object exists.
+#compress imsg before publish
 ##########################################################################
-COMPRESS_IMGS=""
-for object in ${ANDROID_PUBLISH_LIST[@]}
+LAST_PWD=$(pwd)
+cd "$ANDROID_OUTPUT_PATH"
+
+COMPRESS_RET=0
+
+COMPRESS_IMGS=''
+for object in ${ANDROID_BURN_IMG_LIST[@]}
 do
-	obj_path=$ANDROID_OUTPUT_PATH/$object
+	obj_path=$object
 	echo "obj_path "$obj_path
-	COMPRESS_IMGS=$obj_path" "$COMPRESS_IMGS
-
+	COMPRESS_IMGS=$object" "$COMPRESS_IMGS
 	if [ ! -f $obj_path ]
 	then
 		echo "object "$obj_path" not exist, android build should failed, please check."
-		exit 1
+		COMPRESS_RET=1
 	else
 		chmod +r $obj_path
 	fi
 done
+echo "compress:"$COMPRESS_IMGS
+tar Jcvf $ANDROID_BURN_IMG_FILE $COMPRESS_IMGS
+if [ $? -ne 0 ]
+then
+	COMPRESS_RET=1
+fi
 
-tar Jcvf $ANDROID_OUTPUT_PATH/release-imgs.tar.xz $COMPRESS_IMGS
+COMPRESS_IMGS=''
+for object in ${ANDROID_SYSTEM_IMG_LIST[@]}
+do
+	obj_path=$object
+	echo "obj_path "$obj_path
+	COMPRESS_IMGS=$object" "$COMPRESS_IMGS
+	if [ ! -f $obj_path ]
+	then
+		echo "object "$obj_path" not exist, android build should failed, please check."
+		COMPRESS_RET=1
+	else
+		chmod +r $obj_path
+	fi
+done
+echo "compress:"$COMPRESS_IMGS
+tar Jcvf $ANDROID_SYSTEM_IMG_FILE $COMPRESS_IMGS
+if [ $? -ne 0 ]
+then
+	COMPRESS_RET=1
+fi
+
+COMPRESS_IMGS=''
+for object in ${ANDROID_OTHER_IMG_LIST[@]}
+do
+	obj_path=$object
+	echo "obj_path "$obj_path
+	COMPRESS_IMGS=$object" "$COMPRESS_IMGS
+	if [ ! -f $obj_path ]
+	then
+		echo "object "$obj_path" not exist, android build should failed, please check."
+		COMPRESS_RET=1
+	else
+		chmod +r $obj_path
+	fi
+done
+echo "compress:"$COMPRESS_IMGS
+tar Jcvf $ANDROID_OTHER_IMG_FILE $COMPRESS_IMGS
+if [ $? -ne 0 ]
+then
+	COMPRESS_RET=1
+fi
+
+
+cd "$LAST_PWD"
+
+if [ $COMPRESS_RET -ne 0 ]
+then
+	echo "COMPRESS IMGS FAILED."
+	exit 1
+fi
+
 
 ##########################################################################
-#publish images
+#publish comporessed imgs
 ##########################################################################
 echo "PUBLISH PATH : "$ANDROID_PUBLISH_PATH
 ssh autobuild@$ADNROID_PUBLISH_SERVER	"mkdir -p $ANDROID_PUBLISH_PATH"
@@ -64,22 +134,24 @@ then
 	exit 1
 fi
 
-#
-#for object in ${ANDROID_PUBLISH_LIST[@]}
-#do
-#	obj_path="$ANDROID_OUTPUT_PATH/$object"
-#	scp $obj_path autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
-#	if [ $? -ne 0 ]
-#	then
-#		echo "publish file failed."
-#		exit 1
-#	fi
-#done
-
-scp $ANDROID_OUTPUT_PATH/release-imgs.tar.xz autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
+scp $ANDROID_OUTPUT_PATH/$ANDROID_BURN_IMG_FILE autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
 if [ $? -ne 0 ]
 then
-	echo "publish upgrade zip failed."
+	echo "publish BURN IMG failed."
+	exit 1
+fi
+
+scp $ANDROID_OUTPUT_PATH/$ANDROID_SYSTEM_IMG_FILE autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
+if [ $? -ne 0 ]
+then
+	echo "publish SYSTEM IMG failed."
+	exit 1
+fi
+
+scp $ANDROID_OUTPUT_PATH/$ANDROID_OTHER_IMG_FILE autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
+if [ $? -ne 0 ]
+then
+	echo "publish OTHER IMG failed."
 	exit 1
 fi
 
