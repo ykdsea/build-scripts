@@ -18,7 +18,7 @@ fi
 ##########################################################################
 #global vars.
 ##########################################################################
-UBOOT_BOARD_CFG_FILE="$AML_SCRIPTS_PATH/bootloader/uboot-cfg.list"
+UBOOT_BOARD_CFG_FILE="/mnt/fileroot/autobuild/AndroidBuileEnv/build-scripts/bootloader/uboot-cfg.list"
 UBOOT_BUILD_BOARD=$1
 UBOOT_SOURCE_PATH=$2
 UBOOT_BUILD_CFG=null
@@ -118,13 +118,8 @@ fi
 
 LAST_WD=$(pwd)
 cd "$UBOOT_SOURCE_PATH"
-make distclean
+
 ./mk $UBOOT_BUILD_CFG
-if [ $? -ne 0 ]
-then
-        make distclean
-        ./mk $UBOOT_BUILD_CFG
-fi
 
 if [ $? -ne 0 ]
 then
