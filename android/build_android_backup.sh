@@ -74,7 +74,7 @@ echo "start build android."
 LAST_WD=$(pwd)
 cd "$ANDROID_SOURCE_PATH"
 
-repo manifest -r -o $ANDROID_MANIFEST_SAVED_PATH
+#repo manifest -r -o $ANDROID_MANIFEST_SAVED_PATH
 
 source build/envsetup.sh
 lunch $ANDROID_BUILD_COMBO
