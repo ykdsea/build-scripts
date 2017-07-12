@@ -33,7 +33,7 @@ ANDROID_SYSTEM_IMG_FILE=system_vmlinux_img.tar.xz
 
 ANDROID_OTHER_IMG_LIST=(
 	u-boot.bin
-	u-boot.sd.bin
+	u-boot.bin.sd.bin
 	dtb.img
 	boot.img
 	recovery.img
