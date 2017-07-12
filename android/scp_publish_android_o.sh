@@ -19,6 +19,13 @@ ANDROID_OUTPUT_PATH=$1
 ADNROID_PUBLISH_SERVER=$2
 ANDROID_PUBLISH_PATH=$3
 
+HOST_NANE=`hostname`
+echo "HOST_NANE: ${HOST_NANE}"
+str=`echo ${HOST_NANE} | cut -d '-' -f 2`
+echo "str: $str"
+PUBLISH_SERVER=`echo firmware-$str.amlogic.com`
+echo "PUBLISH_SERVER: ${PUBLISH_SERVER}"
+
 
 ANDROID_BURN_IMG_LIST=(
 	aml_upgrade_package.img
