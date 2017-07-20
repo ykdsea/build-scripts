@@ -73,7 +73,7 @@ do
 	fi
 done
 echo "compress:"$COMPRESS_IMGS
-tar Jcvf $ANDROID_BURN_IMG_FILE $COMPRESS_IMGS
+nice -n -20 tar Jcvf $ANDROID_BURN_IMG_FILE $COMPRESS_IMGS
 if [ $? -ne 0 ]
 then
 	COMPRESS_RET=1
@@ -94,7 +94,7 @@ do
 	fi
 done
 echo "compress:"$COMPRESS_IMGS
-tar Jcvf $ANDROID_SYSTEM_IMG_FILE $COMPRESS_IMGS
+nice -n -20 tar Jcvf $ANDROID_SYSTEM_IMG_FILE $COMPRESS_IMGS
 if [ $? -ne 0 ]
 then
 	COMPRESS_RET=1
@@ -115,7 +115,7 @@ do
 	fi
 done
 echo "compress:"$COMPRESS_IMGS
-tar Jcvf $ANDROID_OTHER_IMG_FILE $COMPRESS_IMGS
+nice -n -20 tar Jcvf $ANDROID_OTHER_IMG_FILE $COMPRESS_IMGS
 if [ $? -ne 0 ]
 then
 	COMPRESS_RET=1

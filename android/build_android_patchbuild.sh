@@ -91,11 +91,11 @@ cd "$ANDROID_SOURCE_PATH"
 source build/envsetup.sh
 lunch $ANDROID_BUILD_COMBO
 echo "ANDROID_INCREMENT_COMPILE: $ANDROID_INCREMENT_COMPILE"
-if [ $ANDROID_INCREMENT_COMPILE -ne 1 ]
-then
+#if [ $ANDROID_INCREMENT_COMPILE -ne 1 ]
+#then
 echo "make clean before build"
 make clean
-fi
+#fi
 make otapackage -j$ANDROID_BUILD_JOBNUM
 #make otapackage -j
 
