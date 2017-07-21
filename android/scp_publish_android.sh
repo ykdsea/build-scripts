@@ -43,7 +43,6 @@ ANDROID_OTHER_IMG_LIST=(
 	dtb.img
 	boot.img
 	recovery.img
-        system.img
 )
 ANDROID_OTHER_IMG_FILE=other_img.tar.xz
 
