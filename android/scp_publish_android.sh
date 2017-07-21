@@ -29,13 +29,13 @@ echo "ADNROID_PUBLISH_SERVER: ${ADNROID_PUBLISH_SERVER}"
 ANDROID_BURN_IMG_LIST=(
 	aml_upgrade_package.img
 )
-ANDROID_BURN_IMG_FILE=aml_upgrade_img.tar.xz
+ANDROID_BURN_IMG_FILE=aml_upgrade_img.tar.bz2
 
 ANDROID_SYSTEM_IMG_LIST=(
 	system.img
 	obj/KERNEL_OBJ/vmlinux
 )
-ANDROID_SYSTEM_IMG_FILE=system_vmlinux_img.tar.xz
+ANDROID_SYSTEM_IMG_FILE=system_vmlinux_img.tar.bz2
 
 ANDROID_OTHER_IMG_LIST=(
 	u-boot.bin
@@ -44,7 +44,7 @@ ANDROID_OTHER_IMG_LIST=(
 	boot.img
 	recovery.img
 )
-ANDROID_OTHER_IMG_FILE=other_img.tar.xz
+ANDROID_OTHER_IMG_FILE=other_img.tar.bz2
 
 
 
@@ -72,7 +72,7 @@ do
 	fi
 done
 echo "compress:"$COMPRESS_IMGS
-nice -n -20 tar Jcvf $ANDROID_BURN_IMG_FILE $COMPRESS_IMGS
+tar cf $ANDROID_BURN_IMG_FILE -I pbzip2 $COMPRESS_IMGS
 if [ $? -ne 0 ]
 then
 	COMPRESS_RET=1
@@ -93,7 +93,7 @@ do
 	fi
 done
 echo "compress:"$COMPRESS_IMGS
-nice -n -20 tar Jcvf $ANDROID_SYSTEM_IMG_FILE $COMPRESS_IMGS
+tar cf $ANDROID_SYSTEM_IMG_FILE -I pbzip2 $COMPRESS_IMGS
 if [ $? -ne 0 ]
 then
 	COMPRESS_RET=1
@@ -114,7 +114,7 @@ do
 	fi
 done
 echo "compress:"$COMPRESS_IMGS
-nice -n -20 tar Jcvf $ANDROID_OTHER_IMG_FILE $COMPRESS_IMGS
+tar cf $ANDROID_OTHER_IMG_FILE -I pbzip2 $COMPRESS_IMGS
 if [ $? -ne 0 ]
 then
 	COMPRESS_RET=1
