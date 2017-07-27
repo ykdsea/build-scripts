@@ -5,13 +5,14 @@
 #																		#
 #########################################################################
 #check params num
-if [ $# != 3 ]
+if [ $# != 4 ]
 then
 	echo "Params num error."
-	echo "build_uboot need 3 input params:"
+	echo "scp     publish android need 4 input params:"
 	echo "param 1: android build output path."
 	echo "param 2: android publish server address."
 	echo "param 3: dest path on publish server."
+	echo "param 4: copy dir path"
 	exit 1
 fi
 
