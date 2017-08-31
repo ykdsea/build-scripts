@@ -16,16 +16,15 @@ then
 fi
 
 ANDROID_OUTPUT_PATH=$1
-#ADNROID_PUBLISH_SERVER=$2
+ADNROID_PUBLISH_SERVER=$2
 ANDROID_PUBLISH_PATH=$3
 
-HOST_NANE=`hostname`
-echo "HOST_NANE: ${HOST_NANE}"
-str=`echo ${HOST_NANE} | cut -d '-' -f 2`
-echo "str: $str"
-ADNROID_PUBLISH_SERVER=`echo firmware-$str.amlogic.com`
+#HOST_NANE=`hostname`
+#echo "HOST_NANE: ${HOST_NANE}"
+#str=`echo ${HOST_NANE} | cut -d '-' -f 2`
+#echo "str: $str"
+#ADNROID_PUBLISH_SERVER=`echo firmware-$str.amlogic.com`
 echo "ADNROID_PUBLISH_SERVER: ${ADNROID_PUBLISH_SERVER}"
-
 
 ANDROID_BURN_IMG_LIST=(
 	aml_upgrade_package.img
@@ -44,8 +43,13 @@ ANDROID_OTHER_IMG_LIST=(
 	dtb.img
 	boot.img
 	recovery.img
+	vendor.img
+	odm.img
 )
 ANDROID_OTHER_IMG_FILE=other_img.tar.bz2
+
+
+
 
 ##########################################################################
 #compress imsg before publish
@@ -85,7 +89,7 @@ do
 	if [ ! -f $obj_path ]
 	then
 		echo "object "$obj_path" not exist, android build should failed, please check."
-		#COMPRESS_RET=1
+		COMPRESS_RET=1
 	else
 		chmod +r $obj_path
 	fi
@@ -106,7 +110,7 @@ do
 	if [ ! -f $obj_path ]
 	then
 		echo "object "$obj_path" not exist, android build should failed, please check."
-		#COMPRESS_RET=1
+		COMPRESS_RET=1
 	else
 		chmod +r $obj_path
 	fi
@@ -161,18 +165,18 @@ then
 fi
 
 scp $ANDROID_OUTPUT_PATH/*.zip autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
-#if [ $? -ne 0 ]
-#then
-#	echo "publish upgrade zip failed."
-#	exit 1
-#fi
+if [ $? -ne 0 ]
+then
+	echo "publish upgrade zip failed."
+	exit 1
+fi
 
 scp $ANDROID_OUTPUT_PATH/*.xml autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
-#if [ $? -ne 0 ]
-#then
-#	echo "publish manifest & jenkins xml failed."
-#	exit 1
-#fi
+if [ $? -ne 0 ]
+then
+	echo "publish manifest & jenkins xml failed."
+	exit 1
+fi
 
 
 exit 0
