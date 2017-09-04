@@ -51,6 +51,10 @@ setBuildType(){
 	then
 		export BOARD_COMPILE_ATV=true
 		export BOARD_COMPILE_CTS=true
+	elif [ "$1" == "GTVS" ]
+	then
+                export BOARD_COMPILE_ATV=true
+                export BOARD_COMPILE_CTS=true
 	else
 		echo "ERROR BUILD_TYPE:"$1
 		return 1
