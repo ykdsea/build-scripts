@@ -84,7 +84,7 @@ fi
 if [ "$USB_MODE" = "HOST" ]
 then
 	echo "build usb as host"
-	export USE_USB_AS_DEVICE=false
+	export USE_USB_AS_HOST=true
 fi
 
 echo "USE_USB_AS_DEVICE2: $USE_USB_AS_DEVICE"
