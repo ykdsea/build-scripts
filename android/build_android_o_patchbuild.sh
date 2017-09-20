@@ -87,7 +87,7 @@ then
 	export USE_USB_AS_HOST=true
 fi
 
-echo "USE_USB_AS_DEVICE2: $USE_USB_AS_DEVICE"
+echo "USE_USB_AS_HOST2: $USE_USB_AS_HOST"
 
 # build
 echo "start build android."
