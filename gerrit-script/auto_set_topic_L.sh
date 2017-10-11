@@ -44,7 +44,7 @@ function gettopic() {
 
 echo $GERRIT_CHANGE_NUMBER
 
-bugid=$(ssh -p 29418 sky.zhou@scgit.amlogic.com gerrit query $GERRIT_CHANGE_NUMBER | grep 'PD#' | head -1 | sed 's/.*PD#\s*\(\S*\).*/\1/g' | sed 's/^acos\///')
+bugid=$(ssh -p 29418 sky.zhou@scgit.amlogic.com gerrit query $GERRIT_CHANGE_NUMBER | grep 'PD#' | head -1 | sed 's/.*PD#\s*\(\S*\).*/\1/g' | sed 's/^acos\///' | cut -f 1 -d ":")
 echo $bugid
 #"topic": "Documentation"
 
