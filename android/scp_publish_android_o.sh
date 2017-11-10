@@ -180,5 +180,11 @@ then
 	exit 1
 fi
 
+scp $ANDROID_OUTPUT_PATH/*.html autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
+if [ $? -ne 0 ]
+then
+        echo "publish manifest & jenkins xml failed."
+        exit 1
+fi
 
 exit 0
