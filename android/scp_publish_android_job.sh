@@ -5,7 +5,7 @@
 #																		#
 #########################################################################
 #check params num
-if [ $# != 3 ]
+if [ $# < 3 ]
 then
 	echo "Params num error."
 	echo "scp publish android need 3 input params:"
