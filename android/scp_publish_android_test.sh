@@ -46,6 +46,8 @@ ANDROID_OTHER_IMG_LIST=(
 	dtb.img
 	boot.img
 	recovery.img
+	ramdisk.img
+	kernel
 )
 ANDROID_OTHER_IMG_FILE=other_img.tar.bz2
 

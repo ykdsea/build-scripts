@@ -46,6 +46,7 @@ ANDROID_OTHER_IMG_LIST=(
 	vendor.img
 	odm.img
 	ramdisk.img
+	kernel
 )
 ANDROID_OTHER_IMG_FILE=other_img.tar.bz2
 
