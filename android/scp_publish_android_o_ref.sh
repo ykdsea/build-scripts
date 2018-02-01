@@ -34,8 +34,9 @@ ANDROID_BURN_IMG_FILE=aml_upgrade_img.tar.bz2
 
 ANDROID_SYSTEM_IMG_LIST=(
 	system.img
+	obj/KERNEL_OBJ/vmlinux
 )
-ANDROID_SYSTEM_IMG_FILE=system_img.tar.bz2
+ANDROID_SYSTEM_IMG_FILE=system_vmlinux_img.tar.bz2
 
 ANDROID_OTHER_IMG_LIST=(
 	u-boot.bin
