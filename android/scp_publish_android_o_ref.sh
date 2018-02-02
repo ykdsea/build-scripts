@@ -88,12 +88,9 @@ for object in ${ANDROID_SYSTEM_IMG_LIST[@]}
 do
 	obj_path=$object
 	echo "obj_path "$obj_path
-	COMPRESS_IMGS=$object" "$COMPRESS_IMGS
-	if [ ! -f $obj_path ]
+	if [ -f $obj_path ]
 	then
-		echo "object "$obj_path" not exist, android build should failed, please check."
-		COMPRESS_RET=1
-	else
+		COMPRESS_IMGS=$object" "$COMPRESS_IMGS
 		chmod +r $obj_path
 	fi
 done
