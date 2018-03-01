@@ -89,8 +89,8 @@ source build/envsetup.sh
 lunch $ANDROID_BUILD_COMBO
 make clean
 rm -rf out/
-make otapackage -j$ANDROID_BUILD_JOBNUM
-#make ota_amlogic -j$ANDROID_BUILD_JOBNUM
+#make otapackage -j$ANDROID_BUILD_JOBNUM
+make ota_amlogic -j$ANDROID_BUILD_JOBNUM
 #make otapackage -j
 
 ANDROID_BUILD_RET=$?
