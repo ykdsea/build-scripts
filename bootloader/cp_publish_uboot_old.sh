@@ -18,7 +18,7 @@ fi
 ##########################################################################
 #publish uboot images
 ##########################################################################
-UBOOT_OUTPUT_PATH=$1/build
+UBOOT_OUTPUT_PATH=$1/fip
 UBOOT_PUBLISH_PATH=$2
 
 UBOOT_IMAGE_LIST=(
