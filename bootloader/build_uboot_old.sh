@@ -6,14 +6,6 @@
 #########################################################################
 #check params num
 
-if [ $# != 2 ]
-then
-	echo "Params num error."
-	echo "build_uboot need 2 input params:"
-	echo "param 1: board to build(as p212,q200...)"
-	echo "param 2: uboot source path."
-	exit 1
-fi
 
 ##########################################################################
 #global vars.

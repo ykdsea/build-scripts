@@ -6,14 +6,6 @@
 #########################################################################
 #check params num
 
-if [ $# != 2 ]
-then
-	echo "Params num error."
-	echo "build_uboot need 2 input params:"
-	echo "param 1: board to build(as p212,q200...)"
-	echo "param 2: uboot source path."
-	exit 1
-fi
 
 ##########################################################################
 #global vars.
@@ -120,23 +112,33 @@ fi
 echo "UBOOT_BUILD_CFG: $UBOOT_BUILD_CFG"
 str1=`echo $UBOOT_BUILD_CFG | cut -d "_" -f 1`
 echo "str1: $str1"
-if [ "$3" = "true" ]
-then
-	echo "build gtvs........."
-else
-	echo "build aosp........."
-fi
 
 LAST_WD=$(pwd)
 cd "$UBOOT_SOURCE_PATH/bl33"
 make distclean
 cd "$UBOOT_SOURCE_PATH"
+if [ "$3" = "true" ]
+then
+	echo "build gtvs....$UBOOT_SOURCE_PATH/fip/$str1/bl32.img....."
+	./mk $UBOOT_BUILD_CFG --bl32 $UBOOT_SOURCE_PATH/fip/$str1/bl32.img
+else
+	echo "build aosp........."
+	./mk $UBOOT_BUILD_CFG
+fi
 
-./mk $UBOOT_BUILD_CFG
 if [ $? -ne 0 ]
 then
-        make distclean
-        ./mk $UBOOT_BUILD_CFG
+        cd "$UBOOT_SOURCE_PATH/bl33"
+	make distclean
+	cd "$UBOOT_SOURCE_PATH"
+	if [ "$3" = "true" ]
+	then
+		echo "build gtvs....$UBOOT_SOURCE_PATH/fip/$str1/bl32.img....."
+		./mk $UBOOT_BUILD_CFG --bl32 $UBOOT_SOURCE_PATH/fip/$str1/bl32.img
+	else
+		echo "build aosp........."
+		./mk $UBOOT_BUILD_CFG
+	fi
 fi
 
 if [ $? -ne 0 ]
