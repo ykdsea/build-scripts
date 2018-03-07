@@ -21,7 +21,6 @@ fi
 UBOOT_BOARD_CFG_FILE="$AML_SCRIPTS_PATH/bootloader/uboot-cfg.list"
 UBOOT_BUILD_BOARD=$1
 UBOOT_SOURCE_PATH=$2
-UBOOT_BL32=$3
 UBOOT_BUILD_CFG=null
 UBOOT_BUILD_RET=0
 
@@ -117,21 +116,9 @@ then
 	exit 1
 fi
 
-echo "UBOOT_BUILD_CFG: $UBOOT_BUILD_CFG"
-str1=`echo $UBOOT_BUILD_CFG | cut -d "_" -f 1`
-echo "str1: $str1"
-if [ "$3" = "true" ]
-then
-	echo "build gtvs........."
-else
-	echo "build aosp........."
-fi
-
 LAST_WD=$(pwd)
-cd "$UBOOT_SOURCE_PATH/bl33"
-make distclean
 cd "$UBOOT_SOURCE_PATH"
-
+make distclean
 ./mk $UBOOT_BUILD_CFG
 if [ $? -ne 0 ]
 then
