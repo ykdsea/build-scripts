@@ -113,6 +113,13 @@ echo "UBOOT_BUILD_CFG: $UBOOT_BUILD_CFG"
 str1=`echo $UBOOT_BUILD_CFG | cut -d "_" -f 1`
 echo "str1: $str1"
 
+if [ "$str1" = "gxm" ]
+then
+str1=gxl
+fi
+
+echo "str1: $str1"
+
 LAST_WD=$(pwd)
 cd "$UBOOT_SOURCE_PATH/bl33"
 make distclean
@@ -135,6 +142,11 @@ then
 	then
 		echo "build gtvs....$UBOOT_SOURCE_PATH/fip/$str1/bl32.img....."
 		./mk $UBOOT_BUILD_CFG --bl32 $UBOOT_SOURCE_PATH/fip/$str1/bl32.img
+		if [ $? -ne 0 ]
+		then
+			"try $UBOOT_SOURCE_PATH/fip/gxl/bl32.img"
+			./mk $UBOOT_BUILD_CFG --bl32 $UBOOT_SOURCE_PATH/fip/gxl/bl32.img
+		fi
 	else
 		echo "build aosp........."
 		./mk $UBOOT_BUILD_CFG
