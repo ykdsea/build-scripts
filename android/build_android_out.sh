@@ -27,6 +27,8 @@ ANDROID_BUILD_TYPE=$3
 ANDROID_BUILD_JOBNUM=$4
 ANDROID_MANIFEST_SAVED_PATH=$5
 ANDROID_BUILD_RET=0
+ANDROID_BUILD_ARCH=$6
+
 
 if [ $# -lt 5 ]
 then
@@ -59,6 +61,14 @@ setBuildType(){
 	else
 		echo "ERROR BUILD_TYPE:"$1
 		return 1
+	fi
+
+	echo "export ANDROID_BUILD_TYPE: $6"
+	if [ "$6" == "64" ]
+	then
+		export ANDROID_BUILD_TYPE=64
+	else
+		export ANDROID_BUILD_TYPE=32
 	fi
 	
 	return 0
