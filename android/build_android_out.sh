@@ -27,7 +27,7 @@ ANDROID_BUILD_TYPE=$3
 ANDROID_BUILD_JOBNUM=$4
 ANDROID_MANIFEST_SAVED_PATH=$5
 ANDROID_BUILD_RET=0
-ANDROID_BUILD_ARCH=$6
+ANDROID_BUILD_TYPE=$6
 
 
 if [ $# -lt 5 ]
@@ -40,6 +40,8 @@ then
 	ANDROID_BUILD_JOBNUM=8
 	echo "Set default build jobnum:"$ANDROID_BUILD_JOBNUM
 fi
+
+echo $1 $2 $3 $4 $5 $6
 
 
 setBuildType(){
@@ -64,6 +66,7 @@ setBuildType(){
 	fi
 
 	echo "export ANDROID_BUILD_TYPE: $6"
+	echo "export ANDROID_BUILD_TYPE: $ANDROID_BUILD_TYPE"	
 	if [ "$6" == "64" ]
 	then
 		export ANDROID_BUILD_TYPE=64
