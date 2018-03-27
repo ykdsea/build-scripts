@@ -23,11 +23,11 @@ fi
 ##########################################################################
 ANDROID_SOURCE_PATH=$1
 ANDROID_BUILD_COMBO=$2
-ANDROID_BUILD_TYPE=$3
+ANDROID_BUILD_TYPE2=$3
 ANDROID_BUILD_JOBNUM=$4
 ANDROID_MANIFEST_SAVED_PATH=$5
 ANDROID_BUILD_RET=0
-ANDROID_BUILD_TYPE=$6
+ANDROID_BUILD_ARCH=$6
 
 
 if [ $# -lt 5 ]
@@ -40,9 +40,6 @@ then
 	ANDROID_BUILD_JOBNUM=8
 	echo "Set default build jobnum:"$ANDROID_BUILD_JOBNUM
 fi
-
-echo $1 $2 $3 $4 $5 $6
-
 
 setBuildType(){
 	if [ "$1" == "AOSP" ]
@@ -65,15 +62,6 @@ setBuildType(){
 		return 1
 	fi
 
-	echo "export ANDROID_BUILD_TYPE: $6"
-	echo "export ANDROID_BUILD_TYPE: $ANDROID_BUILD_TYPE"	
-	if [ "$6" == "64" ]
-	then
-		export ANDROID_BUILD_TYPE=64
-	else
-		export ANDROID_BUILD_TYPE=32
-	fi
-	
 	return 0
 }
 
@@ -85,10 +73,18 @@ setBuildType(){
 #setup jdk 1.8
 source /opt/choose_java_version.sh < "$AML_SCRIPTS_PATH/android/jdk18"
 #set up build enviroment.
-setBuildType $ANDROID_BUILD_TYPE
+setBuildType $ANDROID_BUILD_TYPE2
 if [ $? -ne 0 ]
 then
 	exit 1
+fi
+
+echo "export ANDROID_BUILD_TYPE: $ANDROID_BUILD_ARCH"
+if [ "$ANDROID_BUILD_ARCH" == "64" ]
+then
+	export ANDROID_BUILD_TYPE=64
+else
+	export ANDROID_BUILD_TYPE=32
 fi
 
 # build
