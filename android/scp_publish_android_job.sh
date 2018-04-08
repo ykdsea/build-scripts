@@ -58,6 +58,8 @@ then
 	exit 1
 fi
 
+rm -rf $ANDROID_OUTPUT_PATH/*fastboot-image*.zip
+
 scp $ANDROID_OUTPUT_PATH/*.zip autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
 if [ $? -ne 0 ]
 then
