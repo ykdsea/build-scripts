@@ -48,7 +48,6 @@ ANDROID_OTHER_IMG_LIST=(
 	odm.img
 	ramdisk.img
 	kernel
-	obj/media_modules
 )
 ANDROID_OTHER_IMG_FILE=other_img.tar.bz2
 
@@ -127,6 +126,8 @@ then
 	COMPRESS_RET=1
 fi
 
+tar zcvf media_modules.tar.gz obj/media_modules/
+
 
 cd "$LAST_PWD"
 
@@ -147,6 +148,8 @@ then
 	echo "ssh the publish server "$ADNROID_PUBLISH_SERVER" failed."
 	exit 1
 fi
+
+scp $ANDROID_OUTPUT_PATH/media_modules.tar.gz autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
 
 scp $ANDROID_OUTPUT_PATH/$ANDROID_BURN_IMG_FILE autobuild@$ADNROID_PUBLISH_SERVER:$ANDROID_PUBLISH_PATH
 if [ $? -ne 0 ]
