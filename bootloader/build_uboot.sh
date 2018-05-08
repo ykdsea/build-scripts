@@ -118,6 +118,11 @@ then
 str1=gxl
 fi
 
+if [ "$str1" = "atom" ]
+then
+str1=txlx
+fi
+
 echo "str1: $str1"
 
 LAST_WD=$(pwd)
