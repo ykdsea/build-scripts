@@ -123,6 +123,11 @@ then
 str1=txlx
 fi
 
+if [ "$str1" = "g12a" ]
+then
+str1=g12b
+fi
+
 echo "str1: $str1"
 
 LAST_WD=$(pwd)
