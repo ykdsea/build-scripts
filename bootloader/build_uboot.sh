@@ -123,9 +123,9 @@ then
 str1=txlx
 fi
 
-if [ "$str1" = "g12a" ]
+if [ "$str1" = "g12b" ]
 then
-str1=g12b
+str1=g12a
 fi
 
 echo "str1: $str1"
