@@ -128,6 +128,11 @@ then
 str1=g12a
 fi
 
+if [ "$UBOOT_BUILD_CFG" = "txl_p321_v1" ]
+then
+str1=gx
+fi
+
 echo "str1: $str1"
 
 LAST_WD=$(pwd)
