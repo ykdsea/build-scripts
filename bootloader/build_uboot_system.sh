@@ -142,10 +142,10 @@ cd "$UBOOT_SOURCE_PATH"
 if [ "$3" = "true" ]
 then
 	echo "build gtvs....$UBOOT_SOURCE_PATH/fip/$str1/bl32.img....."
-	./mk $UBOOT_BUILD_CFG --bl32 $UBOOT_SOURCE_PATH/fip/$str1/bl32.img
+	./mk $UBOOT_BUILD_CFG --bl32 $UBOOT_SOURCE_PATH/fip/$str1/bl32.img --systemroot
 else
 	echo "build aosp........."
-	./mk $UBOOT_BUILD_CFG
+	./mk $UBOOT_BUILD_CFG --systemroot
 fi
 
 if [ $? -ne 0 ]
@@ -156,15 +156,15 @@ then
 	if [ "$3" = "true" ]
 	then
 		echo "build gtvs....$UBOOT_SOURCE_PATH/fip/$str1/bl32.img....."
-		./mk $UBOOT_BUILD_CFG --bl32 $UBOOT_SOURCE_PATH/fip/$str1/bl32.img
+		./mk $UBOOT_BUILD_CFG --bl32 $UBOOT_SOURCE_PATH/fip/$str1/bl32.img --systemroot
 		if [ $? -ne 0 ]
 		then
 			"try $UBOOT_SOURCE_PATH/fip/gxl/bl32.img"
-			./mk $UBOOT_BUILD_CFG --bl32 $UBOOT_SOURCE_PATH/fip/gxl/bl32.img
+			./mk $UBOOT_BUILD_CFG --bl32 $UBOOT_SOURCE_PATH/fip/gxl/bl32.img --systemroot
 		fi
 	else
 		echo "build aosp........."
-		./mk $UBOOT_BUILD_CFG
+		./mk $UBOOT_BUILD_CFG --systemroot
 	fi
 fi
 
